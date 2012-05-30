@@ -24,6 +24,13 @@ _update_prompt () {
 
     local e_normal="\[\e[0;0m\]"
 
+
+    # Perlbrew
+    perlversion=$PERLBREW_PERL
+    perlprompt="$e_bred●$e_normal"
+    [[ -z $perlversion ]] && perlprompt="$e_bred●$e_normal"
+    [[ $perlversion = "perl-5.12.2" ]] && perlprompt="$e_green●$e_normal" 
+
     ## Initial prompt
     _prompt="[$e_purple\h$e_normal:$e_cyan\W$e_normal]";
 
@@ -52,6 +59,7 @@ _update_prompt () {
 	if [ -z "$_dumb_prompt" ]; then
 	    e_title=$PWD
 	    e_title=${e_title#\/home\/enric\/workspaces\/}
+	    e_title=${e_title#\/home\/enric\/workspace\/}
 	    e_title=${e_title%%\/*}
 	    ## Assumes that untracked files are always listed after modified ones
 	    ## True for all git versions I could find
@@ -99,7 +107,7 @@ _update_prompt () {
     # title
     title="\[\e]0;$e_title \a\]"
 
-    export PS1="$title$ex$_prompt$branch $score$p ";
+    export PS1="$title$ex$_prompt$branch $score$perlprompt $p ";
 }
 
 dumb_prompt () {
