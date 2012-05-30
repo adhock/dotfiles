@@ -75,6 +75,7 @@ let g:miniBufExplUseSingleClick = 1
 map <Leader>l :TlistToggle<cr>
 let Tlist_Exit_OnlyWindow = 1
 let Tlist_Show_One_File = 1
+let Tlist_WinWidth = 50
 
 " status line
 " %t name

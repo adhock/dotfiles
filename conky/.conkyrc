@@ -7,7 +7,7 @@ xftfont Bitstream Vera Sans Mono:size=7
 #xftfont Terminus:size=8
 xftalpha 1 # Text alpha when using Xft
 
-update_interval 2.0 # Update interval in seconds
+update_interval 5.0 # Update interval in seconds
 
 total_run_times 0
 
@@ -18,9 +18,9 @@ own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
 
 double_buffer yes # Use double buffering (reduces flicker, may not work for everyone)
 
-maximum_width 180
-minimum_size 180
-minimum_width 180
+maximum_width 250
+minimum_size 250
+minimum_width 250
 
 draw_shades no
 draw_outline no
@@ -52,15 +52,13 @@ short_units yes
 
 TEXT
 
-${offset 10}${color ddaa00}${time %d/%m/%Y %H:%M:%S}
-${offset 10}${color slate grey}UpTime: ${color }$uptime
-#${offset 10}${color slate grey}Kern:${color }$kernel
-${offset 10}${color slate grey}CPU:${color } $cpu% | ${freq} MHz | ${acpitemp}C
-${offset 10}${color slate grey}Batt: ${color}${battery_percent BAT1}%
-#${offset 10}${color slate grey}Vol: ${color }${ibm_volume}
-${offset 10}${cpugraph 20,130 000055 ff0000}
-${offset 10}${color ddaa00}${hr 1}
-${offset 10}${color slate grey}Highest CPU:
+#${offset 10}${color green}UpTime: ${color }$uptime
+#${offset 10}${color green}Kern:${color }$kernel
+#${offset 10}${color green}CPU:${color } $cpu% | ${freq} MHz | ${acpitemp}C
+#${offset 10}${color green}CPU:${color } $cpu%
+#${offset 10}${color green}Batt: ${color}${battery_percent BAT1}%
+#${offset 10}${color green}Vol: ${color }${ibm_volume}
+${offset 10}${color green}Highest CPU:
 ${offset 10}${color ddaa00} ${top name 1}${top cpu 1}
 ${offset 10}${color lightgrey} ${top name 2}${top cpu 2}
 ${offset 10}${color lightgrey} ${top name 3}${top cpu 3}
@@ -71,34 +69,41 @@ ${offset 10}${color lightgrey} ${top name 5}${top cpu 5}
 #${offset 10}${color lightgrey} ${top name 8}${top cpu 8}
 #${offset 10}${color lightgrey} ${top name 9}${top cpu 9}
 
-${offset 10}${color slate grey}Highest MEM:
-${offset 10}${color ddaa00} ${top_mem name 1}${top_mem mem 1}
-${offset 10}${color lightgrey} ${top_mem name 2}${top_mem mem 2}
-${offset 10}${color lightgrey} ${top_mem name 3}${top_mem mem 3}
-${offset 10}${color lightgrey} ${top_mem name 4}${top_mem mem 4}
-${offset 10}${color lightgrey} ${top_mem name 5}${top_mem mem 5}
-#${offset 10}${color lightgrey} ${top_mem name 6}${top_mem mem 6}
-#${offset 10}${color lightgrey} ${top_mem name 7}${top_mem mem 7}
-#${offset 10}${color lightgrey} ${top_mem name 8}${top_mem mem 8}
-#${offset 10}${color lightgrey} ${top_mem name 9}${top_mem mem 9}
-${offset 10}${color ddaa00}${hr 1}
-${offset 10}${color slate grey}MEM:  ${color } $memperc% $mem/$memmax
-${offset 10}${membar 3,130}
-${offset 10}${color slate grey}SWAP: ${color }$swapperc% $swap/$swapmax
-${offset 10}${swapbar 3,130}
-${offset 10}${color ddaa00}${hr 1}
-${offset 10}${color slate grey}/:    ${color }${fs_used /}/${fs_size /}
+${offset 10}${color green}Highest MEM:
+${offset 10}${color ddaa00} ${top_mem name 1}${top_mem mem 1} ${top_mem mem_res 1}
+${offset 10}${color lightgrey} ${top_mem name 2}${top_mem mem 2} ${top_mem mem_res 2}
+${offset 10}${color lightgrey} ${top_mem name 3}${top_mem mem 3} ${top_mem mem_res 3}
+${offset 10}${color lightgrey} ${top_mem name 4}${top_mem mem 4} ${top_mem mem_res 4}
+${offset 10}${color lightgrey} ${top_mem name 5}${top_mem mem 5} ${top_mem mem_res 5}
+#${offset 10}${color lightgrey} ${top_mem name 6}${top_mem mem 6} ${top_mem mem_res 6}
+#${offset 10}${color lightgrey} ${top_mem name 7}${top_mem mem 7} ${top_mem mem_res 7}
+#${offset 10}${color lightgrey} ${top_mem name 8}${top_mem mem 8} ${top_mem mem_res 8}
+#${offset 10}${color lightgrey} ${top_mem name 9}${top_mem mem 9} ${top_mem mem_res 9}
+
+${color yellow}${font Radio Space:size=14}
+${offset 10}${color green}ETH: ${color}${addr eth0}
+${offset 10}${color yellow}${upspeedgraph eth0 20,130 000000 ffffff} ${upspeed eth0} k/s
+${offset 10}${downspeedgraph eth0 20,130 000000 ffffff} ${downspeed eth0} k/s
+
+${offset 10}${color green}VPN: ${color}${addr tun0}
+${offset 10}${color yellow}${upspeedgraph tun0 20,130 000000 ffffff} ${upspeed tun0} k/s
+${offset 10}${downspeedgraph tun0 20,130 000000 ffffff} ${downspeed tun0} k/s
+#${offset 10}${color green}WIFI: ${color}${addr wlan0}
+#${offset 10}${color ddaa00}${hr 1}
+
+${color yellow}${font Radio Space:size=14}
+${offset 10}${color green}/: ${color yellow}${fs_used /} / ${fs_size /}
 ${offset 10}${fs_bar 3,130 /}
 ${offset 10}${diskiograph 20,130 000000 ffffff}
-${offset 10}${color ddaa00}${hr 1}
 
-${offset 10}${color slate grey}ETH: ${color}${addr eth0}
-${offset 10}${color slate grey}${color }${upspeed eth0} k/s ${color} ${downspeed eth0}k/s
-${offset 10}${upspeedgraph eth0 20,130 000000 ffffff} 
-${offset 10}${downspeedgraph eth0 20,130 000000 ffffff}
-${offset 10}${color slate grey}VPN: ${color}${addr tun0}
-${offset 10}${color slate grey}${color }${upspeed tun0} k/s ${color} ${downspeed tun0}k/s
-${offset 10}${upspeedgraph tun0 20,130 000000 ffffff} 
-${offset 10}${downspeedgraph tun0 20,130 000000 ffffff}
-${offset 10}${color slate grey}WIFI: ${color}${addr wlan0}
-${offset 10}${color ddaa00}${hr 1}
+${offset 10}${color green}MEM:  ${color yellow} $memperc% $mem / $memmax
+${offset 10}${membar 3,130}
+${offset 10}${color green}SWAP: ${color yellow} $swapperc% $swap / $swapmax
+${offset 10}${swapbar 3,130}
+
+
+${color yellow}${font Radio Space:size=14}
+${offset 10}${cpugraph 14,130 000055 ff0000} ${cpu} %
+
+${color yellow}${font Radio Space:size=20}${time %A %d %Y}
+     ${font Radio Space:size=50}${time %H:%M}
